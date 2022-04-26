@@ -47,6 +47,12 @@ async def flip(ctx):
     coin_face = random.choice(["Head", "Tail"])
     await ctx.send(coin_face)
 
+@bot.event
+async def on_member_join(member):
+    await member.create_dm()
+    await member.dm_channel.send(
+        f"Hello {member.name}, welcome to the XEVR server"
+    )
 # @bot.event
 # async def on_message(message):
 #     if message.author == bot.user:
