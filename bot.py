@@ -55,7 +55,7 @@ async def on_member_join(member):
         f"Hello {member.name}, welcome to the XEVR server"
     )
 
-@bot.command(prefix="create-channel" help=" -- Create new channel with name")
+@bot.command(prefix="create-channel", help=" -- Create new channel with name")
 @commands.has_role("admin")
 async def create_channel(ctx, channel_name="XEVR"):
     guild = ctx.guild
