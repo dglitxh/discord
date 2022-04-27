@@ -71,13 +71,19 @@ async def on_command_error(ctx, error):
         await ctx.send('You do not have the correct role for this command.')
 
 @bot.command(name="question", help=" -- Ask me any academic question")
-async def question(ctx, question):
+async def question(ctx, *question):
+    question = " ".join(list(question))
+    print(question)
     app_id = "E8H76X-T8V8UHPUY2"
     client = wolframalpha.Client(app_id)
     req = client.query(question)
     res = next(req.results).text
-    await ctx.send(res)
-    
+    print(res)
+    print(req.results)
+    if res:    
+        await ctx.send(res)
+    else:
+        await ctx.send("I dont know about that one buddy")    
 
 # @bot.event
 # async def on_message(message):
