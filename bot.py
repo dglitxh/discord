@@ -6,6 +6,7 @@ import requests
 from dotenv import load_dotenv
 from discord.ext import commands
 import random
+import wolframalpha
 
 intents = discord.Intents.default()
 intents.members = True
@@ -69,6 +70,15 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CheckFailure):
         await ctx.send('You do not have the correct role for this command.')
 
+@bot.command(name="question", help=" -- Ask me any academic question")
+async def question(ctx, question):
+    app_id = "E8H76X-T8V8UHPUY2"
+    client = wolframalpha.Client(app_id)
+    req = client.query(question)
+    res = next(req.results).text
+    await ctx.send(res)
+    
+
 # @bot.event
 # async def on_message(message):
 #     if message.author == bot.user:
@@ -79,3 +89,4 @@ async def on_command_error(ctx, error):
 
 
 bot.run(TOKEN)
+
