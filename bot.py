@@ -81,7 +81,7 @@ async def question(ctx, *question):
     res = next(req.results).text
     await ctx.send(res)
 
-@bot.command(name="weather", help="get the weather for any city")
+@bot.command(name="weather", help="get weather by adding any city")
 async def weather(ctx, *city):
     loc = " ".join(list(city).split(" "))
     apiKey = 'ea21c2ee64bf2fd0f38674dc16e62852'
