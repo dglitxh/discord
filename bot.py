@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import random
 import wolframalpha
+import logging
 
 intents = discord.Intents.default()
 intents.members = True
@@ -79,6 +80,32 @@ async def question(ctx, *question):
     print("looking for answers.....")
     res = next(req.results).text
     await ctx.send(res)
+
+@bot.command(name="weather", help="get the weather for any city")
+async def weather(ctx, *city):
+    loc = " ".join(list(city).split(" "))
+    apiKey = 'ea21c2ee64bf2fd0f38674dc16e62852'
+    try:
+        req = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={loc}&appid={apiKey}")
+        data = json.loads(req.text)
+        weather = {
+        'weather': f"Atmosphere:  {data['weather'][0]['main']}",
+            'country': f"Country:  {data['sys']['country']}",
+            'location': f"City:  {data['name']}",
+            'weatherDesc': f"Desc:  {data['weather'][0]['description']}",
+            'temperature': f"Temp:  {round(data['main']['temp'] - 273.15)}°С",
+            'humidity': f"Humidity:  {data['main']['humidity']}%",
+            'feel': f"Feels like:  {round(data['main']['feels_like'] - 273.15)}°С",
+            'windSpeed': f"Wind:  {data['wind']['speed']}km/h" 
+        }
+        msg = f"{'*'*20}\nWeather in {loc.title()}\n{'*'*20}\n"
+        for i in weather:
+            msg += weather[i] + "\n\n"
+        await ctx.send(msg)
+    except:
+        logging.error("could not find weather on open weather")
+        await ctx.send("Errm... couldn't find weather check spelling and/or try again 😬😬")
+
    
 # @bot.event
 # async def on_message(message):
