@@ -83,7 +83,7 @@ async def question(ctx, *question):
 
 @bot.command(name="weather", help="get weather by adding any city")
 async def weather(ctx, *city):
-    loc = " ".join(list(city).split(" "))
+    loc = " ".join(list(city))
     apiKey = 'ea21c2ee64bf2fd0f38674dc16e62852'
     try:
         req = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={loc}&appid={apiKey}")
@@ -104,7 +104,7 @@ async def weather(ctx, *city):
         await ctx.send(msg)
     except:
         logging.error("could not find weather on open weather")
-        await ctx.send("Errm... couldn't find weather check spelling and/or try again 😬😬")
+        await ctx.send("Errm... couldn't find weather, check spelling and/or try again 😬😬")
 
    
 # @bot.event
