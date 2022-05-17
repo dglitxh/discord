@@ -33,9 +33,9 @@ async def on_ready():
     print("Yo we logged in as {0.user}".format(bot))
     print(f'{guild.name}(id: {guild.id})')
 
-    print(f'Guild Members:')
-    async for member in guild.fetch_members(limit=150):
-        print(f" -{member.name}")
+    # print(f'Guild Members:')
+    # async for member in guild.fetch_members(limit=150):
+    #     print(f" -{member.name}")
     
 @bot.command(name="motivate", help="-- Responds with a motivational  quote")
 async def motivator(ctx):
@@ -115,6 +115,6 @@ async def weather(ctx, *city):
 #     if message.content.startswith('hello'):
 #         await message.channel.send('Hello friend!!')
 
-
+print("*"*20)
 bot.run(TOKEN)
 
